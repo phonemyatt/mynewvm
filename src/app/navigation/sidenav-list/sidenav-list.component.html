@@ -1,0 +1,17 @@
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Admin
+          </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-nav-list>
+        <a mat-list-item *ngFor="let routerName of routeNames"
+        (click) = "onClose()"
+        [routerLink] = "[routerName.link]">
+          <mat-icon svgIcon="{{ routerName.icon }}"></mat-icon>
+          {{ routerName.name }}
+        </a>
+    </mat-nav-list>
+  </mat-expansion-panel>
+</mat-accordion>

@@ -9,3 +9,12 @@ button.mat-menu-item {
     height: 24px;
     width: 24px;
   }
+
+  html, body {
+    font-family: 'Roboto', sans-serif;
+    height: 100%;
+  }
+  
+  body {
+    margin: 0;
+  }

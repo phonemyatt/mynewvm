@@ -1,0 +1,12 @@
+a {
+    text-decoration: text;
+    color: white;
+  }
+  
+  a:hover,
+  a:active {
+    color: lightblue;
+}
+
+
+
