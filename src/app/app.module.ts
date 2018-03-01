@@ -19,19 +19,18 @@ export const firebaseConfig = environment.firebaseConfig;
 
 // Module
 import { WelcomeComponent } from './welcome/welcome.component';
-import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
-import { HeaderComponent } from './navigation/header/header.component';
+import { VmsclientComponent } from './vmsclient/vmsclient.component';
 
+// Main Module
 import { AppRoutingModule } from './app-routing.module';
-
-
+import { MainModule } from './main/shared/main.module';
+import { VmsClientModule } from './vmsclient/shared/vmsclient.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeComponent,
-    SidenavListComponent,
-    HeaderComponent,
+    VmsclientComponent
   ],
   imports: [
     BrowserModule,
@@ -46,9 +45,11 @@ import { AppRoutingModule } from './app-routing.module';
     HttpClientModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
+    MainModule,
+    VmsClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent ]
 })
 export class AppModule {
   constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
