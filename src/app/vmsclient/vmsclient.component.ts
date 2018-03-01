@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-vmsclient',
@@ -6,10 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./vmsclient.component.css']
 })
 export class VmsclientComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit() {
   }
-
 }
