@@ -1,72 +1,60 @@
 table{
-    border: none;  
-    width: 100%;
+  border: none;  
+  width: 100%;
+}
+th {
+  text-align: center;
+}
+td {
+  padding: 2px;
+  text-align: left;    
+}
+
+div.main {
+  width:95%;
+  margin: 0 auto;
+}
+
+div.controllers-container {
+  height: 50px;
+  margin: 5px 0;
+  border: 1px dotted red;
+}
+
+div.profile-container {
+  margin: 5px 0;
+  border: 1px dotted blue;
+}
+
+div.list-container {
+  border: 1px dotted gold;  
+}
+.mat-form-field {
+  width: 80%;
+  font-size: 14px;
+  margin-top: 10px;
+}
+.mat-table {
+  width: 98%;  
+}
+
+.highlight{
+  background: #5DED69; /* green */
+}
+
+@-webkit-keyframes fadeIt {
+  0% {
+    background-color: #FFFFFF;
   }
-  th {
-    text-align: center;
+  50% {
+    background-color: #98FB98;
   }
-  td {
-    padding: 2px;
-    text-align: left;    
+  100% {
+    background-color: #FFFFFF;
   }
-  
-  .container-top { 
-    margin: 5px auto; 
-    width:90%;
-    display: flex;
-    flex-direction: row;
-    min-width: 300px;
-  }
-  
-  .container { 
-    margin: 5px auto;
-    width:90%;
-    display: flex;
-    flex-direction: column;
-    min-width: 300px;
-  }
-  
-  .highlight{
-    background: #5DED69; /* green */
-  }
-  
-  .header {
-    min-height: 64px;
-    padding: 8px 24px 0;
-  }
-  
-  .mat-form-field {
-    font-size: 14px;
-    width: 100%;
-  }
-  
-  .mat-table {
-    overflow: auto;
-  }
-  
-  .mat-accent {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .mat-raised-button{
-    margin: 5px auto;
-  }
-  
-  @-webkit-keyframes fadeIt {
-    0% {
-      background-color: #FFFFFF;
-    }
-    50% {
-      background-color: #98FB98;
-    }
-    100% {
-      background-color: #FFFFFF;
-    }
-  }
-  
-  .animate {
-    background-image: none !important;
-    animation: fadeIt 1s ease-in-out
-  }
-  
+}
+
+.animate {
+  background-image: none !important;
+  animation: fadeIt 1s ease-in-out
+}

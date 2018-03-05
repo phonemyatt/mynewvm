@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MaterialModule } from './../../material.module';
+import { MaterialModule } from '../../shared/material.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { RegisterComponent } from '../register/register.component';
 import { LoginComponent } from '../login/login.component';
@@ -11,6 +12,7 @@ import { LogoutComponent } from '../logout/logout.component';
 import { VmsClientServices } from './vmsclient.service';
 
 import { VmsClientRoutingModule } from './vmsclient-routing.module';
+
 
 // VMS Client Module
 
@@ -22,6 +24,7 @@ import { VmsClientRoutingModule } from './vmsclient-routing.module';
     ReactiveFormsModule,
     RouterModule,
     MaterialModule,
+    FlexLayoutModule,
     VmsClientRoutingModule,
   ],
   declarations: [

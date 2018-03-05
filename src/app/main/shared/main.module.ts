@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { MaterialModule } from './../../material.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 
 // Main Navigation Bar
 import { SidenavListComponent } from './../navigation/sidenav-list/sidenav-list.component';
@@ -38,6 +39,7 @@ import { HostsServices } from './../hosts/shared/hosts.service';
 import { ClientsServices } from './../clientlists/shared/clients.service';
 import { CompaniesServices } from './../companies/shared/companies.service';
 import { VLogsServices } from './../vlogs/shared/vlogs.service';
+import { MaterialModule } from '../../shared/material.module';
 
 
 
@@ -49,6 +51,7 @@ import { VLogsServices } from './../vlogs/shared/vlogs.service';
     HttpClientModule,
     MaterialModule,
     MainRoutingModule,
+    FlexLayoutModule,
   ],
   declarations: [
     MainComponent,
