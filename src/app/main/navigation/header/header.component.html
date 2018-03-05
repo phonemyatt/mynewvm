@@ -1,5 +1,11 @@
 <mat-toolbar color="primary">
-  <button mat-fab color="warn" (click)="onToggleSidenav()"><mat-icon svgIcon="menu"></mat-icon></button>  
+  <button mat-fab color="warn" (click)="onToggleSidenav()">
+      <mat-icon svgIcon="menu"></mat-icon>
+  </button>  
   <span class="sidenav-title">{{title}}</span>
+      <span class="my-spacer"></span>
+  
+  <a mat-mini-fab routerLink="../"><mat-icon svgIcon="home"></mat-icon></a>
+  
 </mat-toolbar>
 
