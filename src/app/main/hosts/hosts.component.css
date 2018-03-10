@@ -11,22 +11,39 @@ td {
 }
 
 div.main {
-  width:95%;
+  width:100%;
   margin: 0 auto;
+}
+
+.mat-select.selector-container {
+  width: 200px;
 }
 
 div.controllers-container {
   height: 50px;
-  margin: 5px 0;
+  width: 95%;
+  margin: 5px auto;
   border: 1px dotted red;
 }
 
-div.profile-container {
+div.top-profile-container {
   margin: 5px 0;
   border: 1px dotted blue;
 }
 
-div.list-container {
+div.bot-profile-container {
+  position: fixed; 
+  width: 100%;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;  
+  background-color: aquamarine; 
+  z-index: 1;
+  border: 1px dotted grey; 
+}
+
+div.table-container {
+  margin-bottom: 200px;
   border: 1px dotted gold;  
 }
 .mat-form-field {
@@ -42,7 +59,7 @@ div.list-container {
   background: #5DED69; /* green */
 }
 
-@-webkit-keyframes fadeIt {
+@keyframes fadeIt {
   0% {
     background-color: #FFFFFF;
   }

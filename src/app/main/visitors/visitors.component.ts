@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { VisitorModel } from './shared/visitormodel';
 import { VisitorServices } from './shared/visitors.service';
 import { Observable } from 'rxjs/Observable';
-import { MatTableDataSource, MatSort, MatDialog, MatSnackBar } from '@angular/material';
+import { MatTableDataSource, MatSort, MatDialog, MatPaginator, MatSnackBar } from '@angular/material';
 import { AngularFirestoreCollection, AngularFirestore } from 'angularfire2/firestore';
 import { EditVisitorDialogComponent } from './edit-visitor-dialog/edit-visitor-dialog.component';
 import { ConfirmVisitorDialogComponent } from './confirm-visitor-dialog/confirm-visitor-dialog.component';
@@ -30,6 +30,17 @@ export class VisitorsComponent implements AfterViewInit {
   };
 
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  selecteddesign: String = 'show-2';
+  topDesign: Boolean = true;
+  botDesign: Boolean = false;
+  profiledesigns = [
+    { value: 'show-1', viewValue: 'Show all' },
+    { value: 'show-2', viewValue: 'Show top' },
+    { value: 'show-3', viewValue: 'Show bottom' },
+    { value: 'hide-1', viewValue: 'Hide all' },
+  ];
 
   // visitors$: Observable<any>;
 
@@ -40,6 +51,36 @@ export class VisitorsComponent implements AfterViewInit {
   // ngOnInit() {
   //   this.visitors$ = this.db.colRef.valueChanges();
   // }
+
+  checkDesignSelection(value) {
+    console.log('check' + value);
+    switch (this.selecteddesign) {
+      case 'show-1': {
+        this.topDesign = true;
+        this.botDesign = true;
+        break;
+     }
+     case 'show-2': {
+        this.topDesign = true;
+        this.botDesign = false;
+        break;
+     }
+     case 'show-3': {
+       this.topDesign = false;
+       this.botDesign = true;
+       break;
+     }
+     case 'hide-1': {
+        this.topDesign = false;
+        this.botDesign = false;
+        break;
+     }
+     default: {
+        console.log('invalid choice');
+        break;
+     }
+    }
+  }
 
   clickToSendEmail(data) {
     const text = `Dear ${data.name}, Hello from me your firebase email function.`;
@@ -56,6 +97,7 @@ export class VisitorsComponent implements AfterViewInit {
       this.db.returnVisitorCollections().valueChanges().subscribe(data => {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     });
   }
 
@@ -102,9 +144,7 @@ export class VisitorsComponent implements AfterViewInit {
   }
 
    applyFilter(filterValue: string) {
-    filterValue = filterValue.trim();
-    filterValue = filterValue.toLowerCase();
-    this.dataSource.filter = filterValue;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   trackByUid(index, item) {
@@ -119,7 +159,7 @@ export class VisitorsComponent implements AfterViewInit {
       data: 'new'
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.snackBar.open('Added a visitor', 'Dismiss', {duration: 2000});
+      this.snackBar.open('Closed Add/Edit Dialog', 'Dismiss', {duration: 2000});
     });
   }
 

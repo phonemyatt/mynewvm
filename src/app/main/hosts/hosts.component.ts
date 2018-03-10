@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { HostModel, HostUIModel } from './shared/hostmodel';
 import { HostsServices } from './shared/hosts.service';
 import { Observable } from 'rxjs/Observable';
-import { MatTableDataSource, MatSort, MatDialog, MatSnackBar } from '@angular/material';
+import { MatTableDataSource, MatSort, MatDialog, MatPaginator, MatSnackBar } from '@angular/material';
 import { AngularFirestoreCollection, AngularFirestore } from 'angularfire2/firestore';
 import { EditHostDialogComponent } from './edit-host-dialog/edit-host-dialog.component';
 import { ConfirmHostDialogComponent } from './confirm-host-dialog/confirm-host-dialog.component';
@@ -31,7 +31,17 @@ export class HostsComponent implements AfterViewInit {
   };
 
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
+  selecteddesign: String = 'show-2';
+  topDesign: Boolean = true;
+  botDesign: Boolean = false;
+  profiledesigns = [
+    { value: 'show-1', viewValue: 'Show all' },
+    { value: 'show-2', viewValue: 'Show top' },
+    { value: 'show-3', viewValue: 'Show bottom' },
+    { value: 'hide-1', viewValue: 'Hide all' },
+  ];
   // hosts$: Observable<any>;
 
   constructor(private db: HostsServices,
@@ -41,6 +51,36 @@ export class HostsComponent implements AfterViewInit {
   // ngOnInit() {
   //   this.hosts$ = this.db.colRef.valueChanges();
   // }
+
+  checkDesignSelection(value) {
+    console.log('check' + value);
+    switch (this.selecteddesign) {
+      case 'show-1': {
+        this.topDesign = true;
+        this.botDesign = true;
+        break;
+     }
+     case 'show-2': {
+        this.topDesign = true;
+        this.botDesign = false;
+        break;
+     }
+     case 'show-3': {
+       this.topDesign = false;
+       this.botDesign = true;
+       break;
+     }
+     case 'hide-1': {
+        this.topDesign = false;
+        this.botDesign = false;
+        break;
+     }
+     default: {
+        console.log('invalid choice');
+        break;
+     }
+    }
+  }
 
   clickToSendEmail(data) {
     const text = `Dear ${data.name}, You have been registered in Visitor Mangement System, Anewtech.`;
@@ -57,6 +97,7 @@ export class HostsComponent implements AfterViewInit {
       this.db.returnHostCollections().subscribe(data => {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     });
   }
 
@@ -104,9 +145,7 @@ export class HostsComponent implements AfterViewInit {
   }
 
    applyFilter(filterValue: string) {
-    filterValue = filterValue.trim();
-    filterValue = filterValue.toLowerCase();
-    this.dataSource.filter = filterValue;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   trackByUid(index, item) {
@@ -121,7 +160,7 @@ export class HostsComponent implements AfterViewInit {
       data: 'new'
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.snackBar.open('Added a host', 'Dismiss', {duration: 2000});
+      this.snackBar.open('Closed Add/Edit Dialog', 'Dismiss', {duration: 2000});
     });
   }
 

@@ -8,12 +8,20 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 export class SidenavListComponent implements OnInit {
   @Output() closeSidenav = new EventEmitter<void>();
 
-  routeNames =  [
+  adminRouteNames =  [
   { name: 'My Company' , link: 'companies' , icon: 'clipboard'},
   { name: 'Logs' , link: 'logs' , icon: 'book-open'},
   { name: 'Visitors' , link: 'visitors' , icon: 'account-plus'},
   { name: 'Hosts' , link: 'hosts' , icon: 'account-multiple-plus'},
   { name: 'Clients' , link: 'clients' , icon: 'account-multiple'},
+ ];
+// visitor and host
+ visitorRouteNames =  [
+  { name: 'Check Appointment' , link: 'companies' , icon: 'clipboard'},
+  { name: 'Schedule Appointment' , link: 'logs' , icon: 'book-open'},
+  { name: 'History' , link: 'visitors' , icon: 'account-plus'},
+  { name: 'Profile' , link: 'hosts' , icon: 'account-multiple-plus'},
+  { name: 'Contacts' , link: 'clients' , icon: 'account-multiple'},
  ];
 
   constructor() { }

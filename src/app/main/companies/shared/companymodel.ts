@@ -1,5 +1,6 @@
 export interface CompanyModel {
     id?: string;
+    permission?: string;
     imgpath?: string;
     name?: string;
     desc?: string;

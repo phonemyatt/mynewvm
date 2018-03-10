@@ -6,12 +6,29 @@
           </mat-panel-title>
     </mat-expansion-panel-header>
     <mat-nav-list>
-        <a mat-list-item *ngFor="let routerName of routeNames"
+        <a mat-list-item *ngFor="let adminRouterName of adminRouteNames"
         (click) = "onClose()"
-        [routerLink] = "[routerName.link]">
-          <mat-icon svgIcon="{{ routerName.icon }}"></mat-icon>
-          {{ routerName.name }}
+        [routerLink] = "[adminRouterName.link]">
+          <mat-icon svgIcon="{{ adminRouterName.icon }}"></mat-icon>
+          {{ adminRouterName.name }}
         </a>
     </mat-nav-list>
   </mat-expansion-panel>
+
+  <mat-expansion-panel expanded="false">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Visitor
+          </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-nav-list>
+        <a mat-list-item *ngFor="let visitorRouterName of visitorRouteNames"
+        (click) = "onClose()"
+        [routerLink] = "[visitorRouterName.link]">
+          <mat-icon svgIcon="{{ visitorRouterName.icon }}"></mat-icon>
+          {{ visitorRouterName.name }}
+        </a>
+    </mat-nav-list>
+  </mat-expansion-panel>
+
 </mat-accordion>
