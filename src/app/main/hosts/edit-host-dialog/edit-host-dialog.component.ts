@@ -42,8 +42,6 @@ export class EditHostDialogComponent {
         this.host.hp = data.hp;
         this.host.address = data.address;
       }
-
-      console.log(this.host.id);
     }
 
   onNoClick(): void {

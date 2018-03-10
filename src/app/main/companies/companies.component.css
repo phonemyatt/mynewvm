@@ -1,4 +1,4 @@
-.example-container { 
+.main-company-profile { 
   margin: 10px auto;     
   width:60%;
   display: flex;
@@ -24,11 +24,47 @@ th {
 }
 
 .main-control-container {
-  text-align: center;
-  width: 100%;  
+  width: 95%;  
+  margin: 0 auto;
   border: 1px dotted red;
 }
 
 .main-control-container button {
   margin: 10px 10px;  
+}
+
+div.table-container {
+  margin-top: 5px;
+  margin-bottom: 200px;
+  border: 1px dotted gold;  
+}
+
+.mat-form-field {
+  width: 80%;
+  font-size: 14px;
+  margin-top: 10px;
+}
+.mat-table {
+  width: 98%;  
+}
+
+.highlight{
+  background: #5DED69; /* green */
+}
+
+@keyframes fadeIt {
+  0% {
+    background-color: #FFFFFF;
+  }
+  50% {
+    background-color: #98FB98;
+  }
+  100% {
+    background-color: #FFFFFF;
+  }
+}
+
+.animate {
+  background-image: none !important;
+  animation: fadeIt 1s ease-in-out
 }
