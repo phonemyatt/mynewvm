@@ -13,6 +13,7 @@ export class CompaniesComponent implements OnInit {
   mycompany: CompanyModel = {
     id: '',
     imgpath: '',
+    permission: '',
     name: '',
     desc: '',
     remark:  '',

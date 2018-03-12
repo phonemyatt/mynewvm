@@ -3,15 +3,19 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import { fromPromise } from 'rxjs/observable/fromPromise';
-import { expand, takeWhile, mergeMap, take } from 'rxjs/operators';
+import { expand, takeWhile, mergeMap, take, combineAll } from 'rxjs/operators';
 import * as faker from 'faker'; // optional
 import 'rxjs/add/operator/mergeMap';
-import { CompanyModel } from './companymodel';
+import { CompanyModel, CustomerCompanyModel } from './companymodel';
 
 @Injectable()
 export class CompaniesServices {
     private mycompanylink = 'mycompany';
     private singleRef = this.afs.collection(this.mycompanylink).doc('super');
+
+    private mycustomerlink = "customers" // this.mycompanylink + '/customers';
+    private colRef = this.afs.collection(this.mycustomerlink, ref => ref.orderBy('__name__'));
+
     constructor(private afs: AngularFirestore) { }
 
     getOne() {
@@ -57,6 +61,7 @@ export class CompaniesServices {
             this.singleRef.update({
                 id: 'super',
                 imgpath: data.imgpath,
+                permission: data.permission, 
                 name: data.name,
                 desc: data.desc,
                 remark: data.remark,
@@ -69,5 +74,114 @@ export class CompaniesServices {
                 googlelink: data.googlelink,
             });
         }
+    }
+
+    deleteCustomerCompany(company: CustomerCompanyModel) {
+        this.afs.collection(this.mycustomerlink).doc(company.id).delete();
+    }
+
+    updateCustomerCompany(company: CustomerCompanyModel) {
+        this.afs.collection(this.mycustomerlink).doc(company.id).update({
+            permission:company.permission,
+            imgpath: company.imgpath,
+            name: company.name,
+            desc: company.desc,
+            remark: company.remark,
+            address: company.address,    
+            tel: company.tel,
+            fax: company.fax,
+            cemail: company.cemail,
+            homelink: company.homelink,
+            fblink: company.fblink,
+            googlelink: company.googlelink,
+        });
+    }
+
+    returnCustomerCompanyCollections() {
+        return this.afs.collection<CustomerCompanyModel>(this.mycustomerlink);
+    }
+
+    addOneCustomerCompany(company: CustomerCompanyModel) {
+        if ( company ) {
+            this.colRef.add(company).then(x => {
+                this.afs.collection(this.mycustomerlink).doc(x.id).update({
+                    id: x.id
+                });
+            });
+        }
+    }
+
+    addOneRandomCustomerCompany() {
+        const company: CustomerCompanyModel =  {
+            id: '',
+            permission:faker.internet.userAgent(),
+            imgpath: faker.image.business(),
+            name: faker.company.companyName(),
+            desc: faker.lorem.paragraph(),
+            remark: faker.lorem.sentence(),
+            address: faker.address.streetAddress(),    
+            tel: faker.phone.phoneNumber(),
+            fax: faker.phone.phoneNumber(),
+            cemail: faker.company.email(),
+            homelink: faker.internet.url(),
+            fblink: faker.internet.url(),
+            googlelink: faker.internet.url()
+        };
+        this.colRef.add(company).then(x => {
+            this.afs.collection(this.mycustomerlink).doc(x.id).update({
+                id: x.id
+            });
+        });
+    }
+
+    generateCustomerCompanies(size: number) {
+        for (const i of Array(size)) {
+            const dummyData: CustomerCompanyModel = {
+                id: '',
+                permission:faker.internet.userAgent(),
+                imgpath: faker.image.business(),
+                name: faker.company.companyName(),
+                desc: faker.lorem.paragraph(),
+                remark: faker.lorem.sentence(),
+                address: faker.address.streetAddress(),    
+                tel: faker.phone.phoneNumber(),
+                fax: faker.phone.phoneNumber(),
+                cemail: faker.company.email(),
+                homelink: faker.internet.url(),
+                fblink: faker.internet.url(),
+                googlelink: faker.internet.url()
+            };
+            this.colRef.add(dummyData).then(x => {
+                this.colRef.doc(x.id).update({
+                    id: x.id
+                });
+            });
+        };
+    }
+
+    deleteCustomerCompanyCollection(path: string, batchSize: number): Observable<any> {
+        const source = this.deleteBatch(path, batchSize);
+        // expand will call deleteBatch recursively until the collection is deleted
+        return source.pipe(
+            expand(val => this.deleteBatch(path, batchSize)),
+            takeWhile(val => val > 0)
+        );
+    }
+
+    // Detetes documents as batched transaction
+    private deleteBatch(path: string, batchSize: number): Observable<any> {
+        const colRef = this.afs.collection(path, ref => ref.orderBy('__name__').limit(batchSize));
+        return colRef.snapshotChanges().pipe(
+            take(1),
+            mergeMap(snapshot => {
+
+                // Delete documents in a batch
+                const batch = this.afs.firestore.batch();
+                snapshot.forEach(doc => {
+                    batch.delete(doc.payload.doc.ref);
+                });
+                return fromPromise(batch.commit()).map(() => snapshot.length);
+            })
+        );
     }
 }
