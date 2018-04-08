@@ -1,3 +1,38 @@
-<p>
-  edit-company-dialog works!
-</p>
+<div class="dialog-container">
+  <h5>{{title}}</h5>
+  <mat-form-field>
+    <input matInput [(ngModel)]= "company.imgpath" placeholder="new picture">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]= "company.name" placeholder="new name">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]= "company.address1" placeholder="new address1">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]= "company.address2" placeholder="new address2">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]= "company.country" placeholder="new country">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]= "company.postal" placeholder="new postal">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]= "company.cemail" placeholder="new email">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]= "company.tel" placeholder="new telephone">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]= "company.fax" placeholder="new telephone">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]= "company.homelink" placeholder="new home page">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]= "company.permission" placeholder="new permission">
+  </mat-form-field>
+  <button mat-raised-button (click)="updateCompany()">Save</button>
+  </div>
+  

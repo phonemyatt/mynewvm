@@ -19,6 +19,7 @@ import { VlogsComponent } from './../vlogs/vlogs.component';
 import { VisitorsComponent } from './../visitors/visitors.component';
 import { HostsComponent } from './../hosts/hosts.component';
 import { CompaniesComponent } from './../companies/companies.component';
+import { MyCompanyComponent } from './../mycompany/mycompany.component';
 import { ClientlistsComponent } from './../clientlists/clientlists.component';
 
 // Main App Dialog Modules
@@ -37,6 +38,7 @@ import { EditVlogsDialogComponent } from '../vlogs/edit-vlogs-dialog/edit-vlogs-
 import { VisitorServices } from './../visitors/shared/visitors.service';
 import { HostsServices } from './../hosts/shared/hosts.service';
 import { ClientsServices } from './../clientlists/shared/clients.service';
+import { MyCompanyServices } from './../mycompany/shared/mycompany.service';
 import { CompaniesServices } from './../companies/shared/companies.service';
 import { VLogsServices } from './../vlogs/shared/vlogs.service';
 import { MaterialModule } from '../../shared/material.module';
@@ -57,6 +59,7 @@ import { MaterialModule } from '../../shared/material.module';
     MainComponent,
     ClientlistsComponent,
     CompaniesComponent,
+    MyCompanyComponent,
     HostsComponent,
     VisitorsComponent,
     VlogsComponent,
@@ -82,6 +85,7 @@ import { MaterialModule } from '../../shared/material.module';
     HostsServices,
     ClientsServices,
     CompaniesServices,
+    MyCompanyServices,
     VLogsServices,
   ],
   entryComponents: [

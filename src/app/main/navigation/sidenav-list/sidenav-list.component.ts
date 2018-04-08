@@ -9,7 +9,8 @@ export class SidenavListComponent implements OnInit {
   @Output() closeSidenav = new EventEmitter<void>();
 
   adminRouteNames =  [
-  { name: 'My Company' , link: 'companies' , icon: 'clipboard'},
+  { name: 'My Company' , link: 'mycompany' , icon: 'cube'},
+  { name: 'Companies' , link: 'companies', icon: 'clipboard' },
   { name: 'Logs' , link: 'logs' , icon: 'book-open'},
   { name: 'Visitors' , link: 'visitors' , icon: 'account-plus'},
   { name: 'Hosts' , link: 'hosts' , icon: 'account-multiple-plus'},

@@ -5,106 +5,43 @@ import { Observable } from 'rxjs/Observable';
 import { fromPromise } from 'rxjs/observable/fromPromise';
 import { expand, takeWhile, mergeMap, take, combineAll } from 'rxjs/operators';
 import * as faker from 'faker'; // optional
-import 'rxjs/add/operator/mergeMap';
-import { CompanyModel, CustomerCompanyModel } from './companymodel';
+import { CompaniesModel } from './companiesmodel';
 
 @Injectable()
 export class CompaniesServices {
-    private mycompanylink = 'mycompany';
-    private singleRef = this.afs.collection(this.mycompanylink).doc('super');
+    private companieslink = 'companies';
+    private colRef = this.afs.collection(this.companieslink, ref => ref.orderBy('__name__'));
+    constructor(private afs: AngularFirestore, private https: HttpClient) { }
 
-    private mycustomerlink = "customers" // this.mycompanylink + '/customers';
-    private colRef = this.afs.collection(this.mycustomerlink, ref => ref.orderBy('__name__'));
 
-    constructor(private afs: AngularFirestore) { }
-
-    getOne() {
-        this.singleRef.ref.get().then(doc => {
-            if (!doc.exists) {
-                this.generateOne();
-                this.getOne();
-            }
-        });
-        return this.afs.collection('mycompany', ref => ref.where('permission', '==', 'superadmin')
-            .limit(1)).valueChanges().flatMap(result => result);
+    deleteCustomerCompany(company: CompaniesModel) {
+        this.afs.collection(this.companieslink).doc(company.id).delete();
     }
 
-    addOne(data: CompanyModel) {
-        if (data) {
-            this.singleRef.set(data);
-        }
-    }
-    generateOne() {
-        const company: CompanyModel = {
-            id: 'super',
-            imgpath: 'https://anewtech.files.wordpress.com/2014/11/anewtech-systems-logo.jpg?w=848',
-            permission: 'superadmin',
-            name: 'Anewtech Systems Pte Ltd',
-            desc: 'Leading IPC Supplier and Solutions Provider',
-            remark: `We are well established company in South East Asia providing world class services
-            and solutions to manufacturing and medical industry
-            with clear objectives and success stories to follow.`,
-            address: `62 Ubi Road 1, #04-14
-            Oxley Bizhub 2,
-            Singapore 408734`,
-            tel: '+6562920801',
-            fax: '+656292 0831',
-            cemail: 'support0414@anewtech.com.sg',
-            homelink: 'http://www.anewtech.net/',
-            fblink: 'https://www.facebook.com/anewtech.net/',
-            googlelink: 'https://www.google.com/search?q=anewtech+systems',
-        };
-        this.singleRef.set(company);
-    }
-    updateOne(data: CompanyModel) {
-        if (data) {
-            this.singleRef.update({
-                id: 'super',
-                imgpath: data.imgpath,
-                permission: data.permission, 
-                name: data.name,
-                desc: data.desc,
-                remark: data.remark,
-                address: data.address,
-                tel: data.tel,
-                fax: data.fax,
-                cemail: data.cemail,
-                homelink: data.homelink,
-                fblink: data.fblink,
-                googlelink: data.googlelink,
-            });
-        }
-    }
-
-    deleteCustomerCompany(company: CustomerCompanyModel) {
-        this.afs.collection(this.mycustomerlink).doc(company.id).delete();
-    }
-
-    updateCustomerCompany(company: CustomerCompanyModel) {
-        this.afs.collection(this.mycustomerlink).doc(company.id).update({
-            permission:company.permission,
+    updateCustomerCompany(company: CompaniesModel) {
+        this.afs.collection(this.companieslink).doc(company.id).update({
             imgpath: company.imgpath,
             name: company.name,
-            desc: company.desc,
-            remark: company.remark,
-            address: company.address,    
+            address1: company.address1,
+            address2: company.address2,
+            country: company.country,
+            postal: company.postal,
+            cemail: company.cemail,
             tel: company.tel,
             fax: company.fax,
-            cemail: company.cemail,
             homelink: company.homelink,
-            fblink: company.fblink,
-            googlelink: company.googlelink,
+            permission: company.permission,
         });
     }
 
-    returnCustomerCompanyCollections() {
-        return this.afs.collection<CustomerCompanyModel>(this.mycustomerlink);
+    returnCompanyCollections() {
+        return this.afs.collection<CompaniesModel>(this.companieslink);
     }
 
-    addOneCustomerCompany(company: CustomerCompanyModel) {
-        if ( company ) {
+    addOneCustomerCompany(company: CompaniesModel) {
+        if (company) {
             this.colRef.add(company).then(x => {
-                this.afs.collection(this.mycustomerlink).doc(x.id).update({
+                this.afs.collection(this.companieslink).doc(x.id).update({
                     id: x.id
                 });
             });
@@ -112,23 +49,22 @@ export class CompaniesServices {
     }
 
     addOneRandomCustomerCompany() {
-        const company: CustomerCompanyModel =  {
+        const company: CompaniesModel = {
             id: '',
-            permission:faker.internet.userAgent(),
-            imgpath: faker.image.business(),
+            imgpath: faker.image.avatar(),
             name: faker.company.companyName(),
-            desc: faker.lorem.paragraph(),
-            remark: faker.lorem.sentence(),
-            address: faker.address.streetAddress(),    
+            address1: faker.address.streetAddress(),
+            address2: faker.address.streetAddress(),
+            country: faker.address.country(),
+            postal: faker.address.zipCode(),
             tel: faker.phone.phoneNumber(),
             fax: faker.phone.phoneNumber(),
-            cemail: faker.company.email(),
+            cemail: faker.internet.email(),
             homelink: faker.internet.url(),
-            fblink: faker.internet.url(),
-            googlelink: faker.internet.url()
+            permission: faker.name.jobTitle()
         };
         this.colRef.add(company).then(x => {
-            this.afs.collection(this.mycustomerlink).doc(x.id).update({
+            this.afs.collection(this.companieslink).doc(x.id).update({
                 id: x.id
             });
         });
@@ -136,27 +72,26 @@ export class CompaniesServices {
 
     generateCustomerCompanies(size: number) {
         for (const i of Array(size)) {
-            const dummyData: CustomerCompanyModel = {
+            const dummyData: CompaniesModel = {
                 id: '',
-                permission:faker.internet.userAgent(),
-                imgpath: faker.image.business(),
+                imgpath: faker.image.avatar(),
                 name: faker.company.companyName(),
-                desc: faker.lorem.paragraph(),
-                remark: faker.lorem.sentence(),
-                address: faker.address.streetAddress(),    
+                address1: faker.address.streetAddress(),
+                address2: faker.address.streetAddress(),
+                country: faker.address.country(),
+                postal: faker.address.zipCode(),
                 tel: faker.phone.phoneNumber(),
                 fax: faker.phone.phoneNumber(),
-                cemail: faker.company.email(),
+                cemail: faker.internet.email(),
                 homelink: faker.internet.url(),
-                fblink: faker.internet.url(),
-                googlelink: faker.internet.url()
+                permission: faker.name.jobTitle()
             };
             this.colRef.add(dummyData).then(x => {
                 this.colRef.doc(x.id).update({
                     id: x.id
                 });
             });
-        };
+        }
     }
 
     deleteCustomerCompanyCollection(path: string, batchSize: number): Observable<any> {
