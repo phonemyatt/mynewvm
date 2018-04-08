@@ -31,7 +31,7 @@ import { VmsClientModule } from './vmsclient/shared/vmsclient.module';
   declarations: [
     AppComponent,
     WelcomeComponent,
-    VmsclientComponent
+    VmsclientComponent,
   ],
   imports: [
     BrowserModule,

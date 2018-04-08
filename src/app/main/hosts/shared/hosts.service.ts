@@ -6,13 +6,13 @@ import { fromPromise } from 'rxjs/observable/fromPromise';
 import { expand, takeWhile, mergeMap, take } from 'rxjs/operators';
 import * as faker from 'faker'; // optional
 import { HostModel, HostUIModel } from './hostmodel';
-import { CompanyModel } from './../../companies/shared/companymodel';
+import { MyCompanyModel } from './../../mycompany/shared/mycompanymodel';
 
 @Injectable()
 export class HostsServices {
     private companyid = 'super';
     private companylink = 'mycompany';
-    private companyinfo: CompanyModel = {
+    private companyinfo: MyCompanyModel = {
         id: '',
         imgpath: '',
         name: '',
@@ -29,7 +29,7 @@ export class HostsServices {
 
     private hostlink = 'hosts';
 
-    companyRef = this.afs.doc<CompanyModel>( this.companylink + '/' + this.companyid).ref;
+    companyRef = this.afs.doc<MyCompanyModel>( this.companylink + '/' + this.companyid).ref;
 
     colRef = this.afs.collection(this.hostlink, ref => ref.orderBy('__name__'));
 

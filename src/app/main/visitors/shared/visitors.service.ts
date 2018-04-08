@@ -10,7 +10,7 @@ import { VisitorModel } from './visitormodel';
 @Injectable()
 export class VisitorServices {
     private visitorlink = 'visitors';
-    colRef = this.afs.collection(this.visitorlink, ref => ref.orderBy('__name__'));
+    private colRef = this.afs.collection(this.visitorlink, ref => ref.orderBy('__name__'));
     constructor(private afs: AngularFirestore, private https: HttpClient) {}
 
     sendEmail(email: string, message: string) {

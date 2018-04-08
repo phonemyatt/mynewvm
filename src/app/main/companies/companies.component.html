@@ -1,60 +1,55 @@
-<div class="main-company-profile mat-elevation-z1">
-  <table>
-    <tr>
-      <th colspan="2">My Company Profile</th>
-    </tr>
-    <tr>
-        <td colspan="2"><img width="250px" height="250px" src="{{mycompany.imgpath}}" alt="{{mycompany.id}}"></td>
-    </tr>
-    <tr>
-      <td>Name</td>
-      <td>{{mycompany.name}}</td>
-    </tr>
-    <tr>
-      <td>Address</td>
-      <td>{{mycompany.address}}</td>
-    </tr>
-    <tr>
-      <td>Tel</td>
-      <td>{{mycompany.tel}}</td>
-    </tr>
-    <tr>
-      <td>Fax</td>
-      <td>{{mycompany.fax}}</td>
-    </tr>
-    <tr>
-      <td>Email</td>
-      <td><a href="mailto:{{mycompany.cemail}}" target="_top">{{mycompany.cemail}}</a></td>
-    </tr>
-    <tr>
-      <td>Link</td>
-      <td>          
-        <a  target="_blank" [href]="sanitize(mycompany.homelink)"> <mat-icon svgIcon="home"></mat-icon></a>
-        <a  target="_blank" [href]="sanitize(mycompany.fblink)"><mat-icon svgIcon="facebook"></mat-icon></a>
-        <a  target="_blank" [href]="sanitize(mycompany.googlelink)"><mat-icon svgIcon="google"></mat-icon></a>
-      </td>
-    </tr>
-    <tr>
-      <td>Description</td>
-      <td>{{mycompany.desc}}</td>
-    </tr>
-    <tr>
-      <td>Remark</td>
-      <td>{{mycompany.remark}}</td>
-    </tr>
-  </table>
-</div>
-
-<div class="main-control-container" fxLayout="column" fxLayoutALign="center center">
+<!--Main Buttons-->
+<div class="main" fxLayout="column">
   <div class="controllers-container mat-elevation-z1" fxLayoutAlign="space-around center" fxLayoutGap="20px">
-      <button mat-raised-button color="warn" fxLayout="column" fxLayoutAlign="center center" (click)="addOne()">Add a company</button>
-      <button mat-raised-button color="warn" fxLayout="column" fxLayoutAlign="center center" (click)="addOneRandom()">Add a random company</button>
-      <button mat-raised-button color="warn" fxLayout="column" fxLayoutAlign="center center" (click)="generateData()">Generate 50 companies</button>
-      <button mat-raised-button color="warn" fxLayout="column" fxLayoutAlign="center center" (click)="deleteAllVisitors()">Delete Company</button>
+    <button mat-raised-button color="warn"  (click)="addOne()">Add a company</button>
+    <button mat-raised-button color="warn"  (click)="addOneRandom()">Add a random company</button>
+    <button mat-raised-button color="warn"  (click)="generateData()">Generate 50 Companies</button>
+    <button mat-raised-button color="warn"  (click)="deleteAllCustomerCompanies()">Delete Companies</button>
+    <mat-select class="selector-container"  [(value)]="selecteddesign" (selectionChange)="checkDesignSelection()">
+        <mat-option *ngFor="let profiledesign of profiledesigns" [value]="profiledesign.value">
+          {{ profiledesign.viewValue}}
+        </mat-option>
+     </mat-select>
+  </div>
+
+  <!--Top Card-->
+  <div class="top-profile-container mat-elevation-z4" *ngIf="localcompany.id !== '' && topDesign">
+    <table>
+      <tr>
+        <th colspan="4">Customer Company Profile</th>
+      </tr>
+      <tr>
+        <td rowspan="4">
+          <img src="{{localcompany.imgpath}}" alt="{{localcompany.name}}">
+        </td>
+        <td>
+          <b>Name:</b>{{localcompany.name}}</td>
+        <td>
+          <b>Country:</b>{{localcompany.country}}</td>
+        <td>
+          <b>Permission:</b>{{localcompany.permission}}</td>
+      </tr>
+      <tr>
+        <td>
+          <b>Telephone:</b>{{localcompany.tel}}</td>
+        <td>
+          <b>Fax:</b>{{localcompany.fax}}</td>
+        <td>
+          <b>Website:</b>{{localcompany.homelink}}</td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <b>Address:</b>{{localcompany.address1}},{{localcompany.address2}},{{localcompany.postal}}
+        </td>
+        <td>
+          <b>Email:</b>{{localcompany.cemail}}
+        </td>
+      </tr>   
+    </table>
   </div>
 
   <!--Main Table-->
-  <!-- <div class="table-container mat-elevation-z8" fxLayout="column" fxLayoutAlign="start center">
+ <div class="table-container mat-elevation-z8" fxLayout="column" fxLayoutAlign="start center">
       <mat-form-field class="search-bar">
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
       </mat-form-field>
@@ -62,33 +57,33 @@
       <mat-table #table [dataSource]="dataSource" matSort [trackBy]="trackByUid" class="animate">
         <ng-container matColumnDef="avatar">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Avatar </mat-header-cell>
-          <mat-cell *matCellDef="let host">
-            <img src="{{ host.imgpath }}" width="50px" height="50px">
+          <mat-cell *matCellDef="let company">
+            <img src="{{company.imgpath}}" width="50px" height="50px">
           </mat-cell>
         </ng-container>
   
         <ng-container matColumnDef="name">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-          <mat-cell *matCellDef="let host"> {{ mycompany.name }} </mat-cell>
-        </ng-container>
-  
-  
-        <ng-container matColumnDef="company">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Company </mat-header-cell>
-          <mat-cell *matCellDef="let host"> {{ host.company }} </mat-cell>
+          <mat-cell *matCellDef="let company"> {{ company.name }} </mat-cell>
         </ng-container>
   
   
-        <ng-container matColumnDef="ic">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Identification </mat-header-cell>
-          <mat-cell *matCellDef="let host"> {{ host.ic }} </mat-cell>
+        <ng-container matColumnDef="country">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Country </mat-header-cell>
+          <mat-cell *matCellDef="let company"> {{ company.country }} </mat-cell>
+        </ng-container>
+  
+  
+        <ng-container matColumnDef="permission">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Permission </mat-header-cell>
+          <mat-cell *matCellDef="let company"> {{ company.permission }} </mat-cell>
         </ng-container>
   
         <ng-container matColumnDef="edit">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
-          <mat-cell *matCellDef="let host">
-            <button mat-raised-button color="primary" (click)="openHostDialog(host)">Edit</button>
-            <button mat-raised-button color="accent" (click)="deleteHostDialog(host)">Delete</button>
+          <mat-cell *matCellDef="let company">
+            <button mat-raised-button color="primary" (click)="openCustomerCompanyDialog(company)">Edit</button>
+            <button mat-raised-button color="accent" (click)="deleteCustomerCompanyDialog(company)">Delete</button>
           </mat-cell>
         </ng-container>
   
@@ -100,8 +95,41 @@
       <mat-paginator [pageSize]="1" [pageSizeOptions]="[1, 5, 10, 20]">
       </mat-paginator>
     </div>
-   -->
+
+       <!--Bot Card-->
+   <div class="bot-profile-container mat-elevation-z4" *ngIf="localcompany.id !== '' && botDesign">
+    <table>
+      <tr>
+        <th colspan="4">Customer Company Profile</th>
+      </tr>
+      <tr>
+        <td rowspan="4">
+          <img src="{{localcompany.imgpath}}" alt="{{localcompany.name}}">
+        </td>
+        <td>
+          <b>Name:</b> {{localcompany.name}}</td>
+        <td>
+          <b>Country:</b> {{localcompany.country}}</td>
+        <td>
+          <b>Permission:</b> {{localcompany.permission}}</td>
+      </tr>
+      <tr>
+        <td>
+          <b>Telephone:</b>{{localcompany.tel}}</td>
+        <td>
+          <b>Fax:</b>{{localcompany.fax}}</td>
+        <td>
+          <b>Website:</b>{{localcompany.homelink}}</td>
+      </tr>
+      <tr>
+        <td colspan="4">
+          <b>Address:</b>{{localcompany.address1}},{{localcompany.address2}},{{localcompany.postal}}</td>
+      </tr>
+     
+    </table>
+  </div>
 </div>
+
 
 
 
