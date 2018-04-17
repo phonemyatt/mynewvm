@@ -7,11 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HostpageComponent implements OnInit {
   tiles = [
-    {text: 'One', cols: 3, rows: 1, color: 'lightblue'},
-    {text: 'Two', cols: 1, rows: 2, color: 'lightgreen'},
+    {text: 'One', cols: 1, rows: 1, color: 'lightblue'},
+    {text: 'Two', cols: 1, rows: 1, color: 'lightgreen'},
     {text: 'Three', cols: 1, rows: 1, color: 'lightpink'},
-    {text: 'Four', cols: 2, rows: 1, color: '#DDBDF1'},
-  ];
+    {text: 'Four', cols: 1, rows: 1, color: '#DDBDF1'},
+    {text: 'Five', cols: 1, rows: 1, color: '#DDBDF1'},
+    {text: 'Six', cols: 1, rows: 1, color: '#DDBDF1'},
+  ];a
   constructor() { }
 
   ngOnInit() {
