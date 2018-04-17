@@ -4,6 +4,7 @@ import { WelcomeComponent } from './../welcome/welcome.component';
 import { MainComponent } from './../main/main.component';
 import { VmsclientComponent } from './../vmsclient/vmsclient.component';
 
+
 const routes: Routes = [
     { path: '', component: WelcomeComponent },
     { path: 'vmsclient', component: VmsclientComponent},
