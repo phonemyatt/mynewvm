@@ -1,3 +1,85 @@
-<p>
-  visitorpage works!
-</p>
+<div fxFlexFill style="background-color:firebrick">
+  <div fxLayout="column" fxFlexFill style="background-color:orange">
+
+    <div fxLayout="row" fxLayoutAlign="space-between start" fxFlex="10" style="background-color:grey">
+      <button mat-mini-fab color="primary"> <mat-icon svgIcon="arrow-left"></mat-icon></button>
+      <h3 fxFlexAlign="end">Anewtech Systems Logo</h3>
+      <button mat-raised-button color="primary">Howto</button>
+    </div>
+
+    <div fxLayout="column" fxLayoutAlign="center center" fxFlex style="background-color:rgb(163, 162, 162)">
+      <mat-horizontal-stepper style="width:90%;height:100%;" [linear]="isLinear" #stepper="matHorizontalStepper">
+
+        <mat-step [stepControl]="firstFormGroup" label="Email">
+          <form [formGroup]="firstFormGroup">                        
+            <mat-form-field>              
+              <mat-label>What's your email address?</mat-label>
+              <input matInput placeholder="example@email.xxx.xx" formControlName="firstCtrl" required>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperNext class="NextButton">Next</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="secondFormGroup" label="Name">
+          <form [formGroup]="secondFormGroup">           
+            <mat-form-field>
+              <mat-label>Hi There, What's your name?</mat-label>
+              <input matInput placeholder="First Name, Last Name" formControlName="secondCtrl" required>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious class="BackButton">Back</button>
+              <button mat-button matStepperNext class="NextButton">Next</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="thirdFormGroup" label="Company">
+          <form [formGroup]="thirdFormGroup">           
+            <mat-form-field>
+              <mat-label>What company are you with?</mat-label>
+              <input matInput placeholder="Company" formControlName="thirdCtrl" required>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious class="BackButton">Back</button>
+              <button mat-button matStepperNext class="NextButton">Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="fourthFormGroup" label="HP">
+          <form [formGroup]="fourthFormGroup">           
+            <mat-form-field>
+              <mat-label>What is your mobile number?</mat-label>
+              <input matInput placeholder="Handphone" formControlName="fourthCtrl" required>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious class="BackButton">Back</button>
+              <button mat-button matStepperNext class="NextButton">Next</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="fifthFormGroup" label="IC">
+          <form [formGroup]="fifthFormGroup">           
+            <mat-form-field>
+              <input matInput placeholder="Identification" formControlName="fifthCtrl" required>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious class="BackButton">Back</button>
+              <button mat-button matStepperNext class="NextButton">Next</button>
+            </div>
+          </form>
+        </mat-step>      
+      </mat-horizontal-stepper>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between end" fxFlex="5" style="background-color:rgb(216, 213, 213)">
+      <button mat-raised-button color="primary">QR</button>
+      <h4>Visitor Management System By Anewtech Systems</h4>
+      <button mat-raised-button color="primary">Support</button>
+    </div>
+
+  </div>
+</div>
+

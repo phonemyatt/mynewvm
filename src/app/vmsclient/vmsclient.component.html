@@ -1,1 +1,6 @@
-<app-hostpage></app-hostpage>
+<span [ngSwitch]="currentPage">
+        <app-homepage *ngSwitchCase=1 (clickOnStart)="onStart($event)"></app-homepage>
+        <app-optionspage *ngSwitchCase=2></app-optionspage>
+        <app-hostpage *ngSwitchCase=3></app-hostpage>
+</span>
+

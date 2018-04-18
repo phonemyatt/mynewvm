@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-homepage',
@@ -6,14 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
+  @Output() clickOnStart = new EventEmitter<boolean>();
 
   constructor() { }
 
   ngOnInit() {
+    console.log('init HomePageComponent');
   }
 
-  startDialog() {
-    console.log('you select to start');
+  clickStart() {
+    console.log('goto Options');
+    this.clickOnStart.emit(true);
   }
 }
 

@@ -1,0 +1,19 @@
+form {   
+    width:80%;
+    margin:0 auto;
+    text-align:center
+}
+
+mat-form-field{
+    width:70%;
+}
+
+.NextButton {
+    color:green;
+    background-color: aliceblue;
+}
+
+.BackButton {
+    color:orange;
+    background-color: lightgray;
+}
