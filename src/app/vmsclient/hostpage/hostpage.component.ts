@@ -13,10 +13,11 @@ export class HostpageComponent implements OnInit {
     {text: 'Four', cols: 1, rows: 1, color: '#DDBDF1'},
     {text: 'Five', cols: 1, rows: 1, color: '#DDBDF1'},
     {text: 'Six', cols: 1, rows: 1, color: '#DDBDF1'},
-  ];a
+  ];
   constructor() { }
 
   ngOnInit() {
+    console.log('init HostPageComponent');
   }
 
 }
